@@ -4,9 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Key Generator</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e90ff, #00bfff);
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Buttons */
+        button {
+            background: #ffffff;
+            color: #1e90ff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        button:hover {
+            background: #1e90ff;
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        button:disabled {
+            background: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Key Output */
+        #keyOutput {
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+    </style>
     <script>
-        // Track completion status
+        // Track completion status and key generation status
         let linkvertiseCompleted = false;
+        let keyGenerated = false;
 
         // Check if "completed" is in the URL query string
         function checkCompletion() {
@@ -34,9 +99,18 @@
                 return;
             }
 
+            if (keyGenerated) {
+                alert("You have already generated a key. Only one key is allowed.");
+                return;
+            }
+
             // Generate the key
             const key = Math.random().toString(36).substr(2, 6).toUpperCase();
             document.getElementById('keyOutput').innerText = `Generated Key: ${key}`;
+
+            // Mark the key as generated and disable the button
+            keyGenerated = true;
+            document.getElementById('generateKeyButton').disabled = true;
         }
 
         // Run on page load to check if the completion flag is set
@@ -46,8 +120,8 @@
 <body>
     <h1>Key Generator</h1>
     <button onclick="openLinkvertise()">Open Linkvertise Step</button>
-    <br><br>
-    <button onclick="generateKey()">Generate Key</button>
+    <br>
+    <button id="generateKeyButton" onclick="generateKey()">Generate Key</button>
     <p id="keyOutput"></p>
 </body>
 </html>
