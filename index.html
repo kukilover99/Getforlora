@@ -5,34 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Key Generator</title>
     <script>
+        // Track completion status
         let linkvertiseCompleted = false;
 
+        // Check if "completed" is in the URL query string
+        function checkCompletion() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('completed') && urlParams.get('completed') === 'true') {
+                linkvertiseCompleted = true;
+                alert("Linkvertise step completed! You can now generate a key.");
+            }
+        }
+
         function openLinkvertise() {
-            // Replace this URL with your Linkvertise URL
-            const linkvertiseUrl = "https://linkvertise.com/example";
+            // Replace with your actual Linkvertise URL
+            const linkvertiseUrl = "https://link-hub.net/1266250/key1";
 
             // Open Linkvertise in a new tab
             window.open(linkvertiseUrl, "_blank");
 
-            // Simulate waiting for completion (manual process or integrate API)
-            alert("Once you've completed the Linkvertise step, click 'Confirm Completion' below.");
-        }
-
-        function confirmCompletion() {
-            // This is a placeholder for checking completion
-            // Replace with actual verification logic if using an API
-            const completed = confirm("Have you completed the Linkvertise step?");
-            if (completed) {
-                linkvertiseCompleted = true;
-                alert("Linkvertise step confirmed. You can now generate a key.");
-            } else {
-                alert("Please complete the Linkvertise step first.");
-            }
+            // Notify the user to return to this page
+            alert("Complete the Linkvertise step, then return to this page.");
         }
 
         function generateKey() {
             if (!linkvertiseCompleted) {
-                alert("You must complete the Linkvertise step first.");
+                alert("You must complete the Linkvertise step before generating a key.");
                 return;
             }
 
@@ -40,15 +38,17 @@
             const key = Math.random().toString(36).substr(2, 6).toUpperCase();
             document.getElementById('keyOutput').innerText = `Generated Key: ${key}`;
         }
+
+        // Run on page load to check if the completion flag is set
+        window.onload = checkCompletion;
     </script>
 </head>
 <body>
     <h1>Key Generator</h1>
     <button onclick="openLinkvertise()">Open Linkvertise Step</button>
     <br><br>
-    <button onclick="confirmCompletion()">Confirm Completion</button>
-    <br><br>
     <button onclick="generateKey()">Generate Key</button>
     <p id="keyOutput"></p>
 </body>
 </html>
+
