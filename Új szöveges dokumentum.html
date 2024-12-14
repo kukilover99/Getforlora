@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Generator</title>
+    <script>
+        function redirectToLinkvertise() {
+            // Replace this URL with your Linkvertise URL
+            const linkvertiseUrl = "https://linkvertise.com/example";
+            window.location.href = linkvertiseUrl;
+        }
+
+        function generateKey() {
+            // Simple validation to simulate completion
+            const urlParams = new URLSearchParams(window.location.search);
+            if (!urlParams.has('completed')) {
+                alert("Please complete the Linkvertise step to generate your key.");
+                return;
+            }
+
+            // Generate the key if Linkvertise step is completed
+            const key = Math.random().toString(36).substr(2, 6).toUpperCase();
+            document.getElementById('keyOutput').innerText = `Generated Key: ${key}`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Key Generator</h1>
+    <button onclick="redirectToLinkvertise()">Complete Linkvertise Step</button>
+    <br><br>
+    <button onclick="generateKey()">Generate Key</button>
+    <p id="keyOutput"></p>
+</body>
+</html>
